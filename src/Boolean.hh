@@ -1,3 +1,10 @@
+/*
+ * Boolean expression evaluator in C++.
+ *
+ * @author: Dani Huertas
+ * @email huertas.dani@gmail.com
+ *
+ */
 #ifndef __BOOLEAN_HH__
 #define __BOOLEAN_HH__
 

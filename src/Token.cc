@@ -1,3 +1,10 @@
+/*
+ * Boolean expression evaluator in C++.
+ *
+ * @author: Dani Huertas
+ * @email huertas.dani@gmail.com
+ *
+ */
 #include <cctype>
 #include <algorithm>
 

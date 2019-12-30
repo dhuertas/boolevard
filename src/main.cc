@@ -1,8 +1,9 @@
 /*
  * Boolean expression evaluator in C++.
- * Based on https://ruslanspivak.com/lsbasi-part7/
  *
  * @author: Dani Huertas
+ * @email huertas.dani@gmail.com
+ *
  */
 #include <iostream>
 #include <string>

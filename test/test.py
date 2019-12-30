@@ -1,4 +1,8 @@
-
+#
+# Boolean expression evaluator
+# @author Dani Huertas
+# @email huertas.dani@gmail.com
+#
 import subprocess
 
 def test(expr, expected):
