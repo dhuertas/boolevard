@@ -25,6 +25,8 @@ protected:
 
     Token currentToken_;
 
+    int depth_;
+
 public:
 
     Parser(const Lexer &lexer);

@@ -18,9 +18,13 @@
 #include "UnaryOperator.hh"
 
 Parser::Parser(const Lexer &lex) :
-    lexer_(lex) {
+    lexer_(lex),
+    depth_(0) {
 
     currentToken_ = lexer_.getNextToken();
+
+    if (currentToken_.getType() == Token::LPAREN) depth_++;
+    if (currentToken_.getType() == Token::RPAREN) depth_--;
 }
 
 //------------------------------------------------------------------------------
@@ -34,7 +38,16 @@ void Parser::consume(uint8_t tokenType) {
     bool validSyntax = true;
 
     if (tokenType == currentToken_.getType()) {
+ 
+        if (tokenType == Token::LPAREN) depth_++;
+        if (tokenType == Token::RPAREN) depth_--;
+
         currentToken_ = lexer_.getNextToken();
+ 
+        if (depth_ < 0 or (depth_ == 0 and currentToken_.getType() == Token::RPAREN)) {
+            validSyntax = false;
+        }
+
     } else {
         validSyntax = false;
     }
