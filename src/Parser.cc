@@ -41,7 +41,6 @@ void Parser::consume(uint8_t tokenType) {
 
         currentToken_ = lexer_.getNextToken();
 
-        INFO("currentToken_: %s depth_: %d", currentToken_.toString().c_str(), depth_);
         if (depth_ < 0 or (depth_ == 0 and currentToken_.getType() == Token::RPAREN)) {
             validSyntax = false;
         }
