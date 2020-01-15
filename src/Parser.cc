@@ -22,9 +22,6 @@ Parser::Parser(const Lexer &lex) :
     depth_(0) {
 
     currentToken_ = lexer_.getNextToken();
-
-    if (currentToken_.getType() == Token::LPAREN) depth_++;
-    if (currentToken_.getType() == Token::RPAREN) depth_--;
 }
 
 //------------------------------------------------------------------------------
@@ -43,7 +40,8 @@ void Parser::consume(uint8_t tokenType) {
         if (tokenType == Token::RPAREN) depth_--;
 
         currentToken_ = lexer_.getNextToken();
- 
+
+        INFO("currentToken_: %s depth_: %d", currentToken_.toString().c_str(), depth_);
         if (depth_ < 0 or (depth_ == 0 and currentToken_.getType() == Token::RPAREN)) {
             validSyntax = false;
         }
