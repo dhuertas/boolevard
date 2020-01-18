@@ -11,6 +11,7 @@
 #include "Number.hh"
 #include "String.hh"
 #include "List.hh"
+#include "Range.hh"
 
 #include "BinaryOperator.hh"
 #include "UnaryOperator.hh"
@@ -233,6 +234,13 @@ bool Interpreter::equal(Node *left, Node *right) {
  
         return res;
     }
+    
+    if (left->getType() == Node::RANGE) {
+        Range *l = (Range *)left;
+        Range *r = (Range *)right;
+
+        return (l->getFrom() == r->getFrom() and l->getTo() == r->getTo());
+    }
 
     return false;
 }
@@ -382,12 +390,17 @@ bool Interpreter::endsWith(Node *left, Node *right) {
 //------------------------------------------------------------------------------
 bool Interpreter::in(Node *left, Node *right) {
 
-    if (right->getType() != Node::LIST) {
-
-        return false;
+    if (right->getType() == Node::LIST) {
+        List *r = (List *)right;
+        return r->find(left->getToken());
     }
 
-    List *r = (List *)right;
+    if (left->getType() == Node::NUMBER and right->getType() == Node::RANGE) {
+        Number *l = (Number *)left;
+        Range *r = (Range *)right;
 
-    return r->find(left->getToken());
+        return r->getFrom() <= l->getValue() and l->getValue() <= r->getTo();
+    }
+
+    return false;
 }

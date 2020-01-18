@@ -15,6 +15,7 @@ std::string Token::names_[] = {
     "NUMBER",
     "STRING",
     "LIST",
+    "RANGE",
     "GREATER",
     "LESS",
     "EQUAL",
@@ -138,7 +139,12 @@ std::vector<Token> Token::getList(void) const {
                 }
 
                 if (token[0] == '[') {
-                    tokens.push_back(Token(Token::LIST, token));
+                    int64_t from = 0, to = 0;
+                    if (sscanf(token.c_str(), "[%ld..%ld]", &from, &to) == 2) {
+                        tokens.push_back(Token(Token::RANGE, token));
+                    } else {
+                        tokens.push_back(Token(Token::LIST, token));
+                    }
                 }
 
                 if (token[0] == '"') {
@@ -165,7 +171,12 @@ std::vector<Token> Token::getList(void) const {
         }
 
         if (token[0] == '[') {
-            tokens.push_back(Token(Token::LIST, token));
+            int64_t from = 0, to = 0;
+            if (sscanf(token.c_str(), "[%ld..%ld]", &from, &to) == 2) {
+                tokens.push_back(Token(Token::RANGE, token));
+            } else {
+                tokens.push_back(Token(Token::LIST, token));
+            }
         }
 
         if (token[0] == '"') {
@@ -174,6 +185,20 @@ std::vector<Token> Token::getList(void) const {
     }
 
     return tokens;
+}
+
+//------------------------------------------------------------------------------
+std::vector<int64_t> Token::getRange(void) const {
+
+    std::vector<int64_t> res;
+    int64_t from = 0, to = 0;
+
+    sscanf(value_.c_str(), "[%ld..%ld]", &from, &to);
+
+    res.push_back(from);
+    res.push_back(to);
+
+    return res;
 }
 
 //------------------------------------------------------------------------------
@@ -192,7 +217,7 @@ int64_t Token::compare(const Token &token) const {
 
     if (res != 0) return res;
 
-    // NOTE returns 0 when equal
+    // NOTE return 0 when equal
     switch (type_) {
 
         case BOOLEAN:
@@ -205,6 +230,12 @@ int64_t Token::compare(const Token &token) const {
             std::vector<Token> a = getList();
             std::vector<Token> b = token.getList();
             return not std::equal(b.begin(), b.end(), a.begin());
+        }
+        case RANGE: {
+            std::vector<int64_t> a = getRange();
+            std::vector<int64_t> b = token.getRange();
+
+            return not (a[0] == b[0] and a[1] == b[1]);
         }
     }
 

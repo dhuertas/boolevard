@@ -23,6 +23,7 @@ public:
         NUMBER,
         STRING,
         LIST,
+        RANGE,
         GREATER,
         LESS,
         EQUAL,
@@ -76,6 +77,8 @@ public:
     bool getBoolean(void) const;
 
     std::vector<Token> getList(void) const;
+
+    std::vector<int64_t> getRange(void) const;
 
     std::string toString(void) const;
 

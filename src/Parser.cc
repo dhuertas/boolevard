@@ -14,6 +14,7 @@
 #include "Number.hh"
 #include "String.hh"
 #include "List.hh"
+#include "Range.hh"
 #include "BinaryOperator.hh"
 #include "UnaryOperator.hh"
 
@@ -78,6 +79,11 @@ Node *Parser::factor(void) {
     if (token.getType() == Token::LIST) {
         consume(Token::LIST);
         node = new List(token);
+    }
+
+    if (token.getType() == Token::RANGE) {
+        consume(Token::RANGE);
+        node = new Range(token);
     }
 
     // Parentheses

@@ -24,6 +24,7 @@ public:
         NUMBER,
         STRING,
         LIST,
+        RANGE,
         UNARYOP,
         BINARYOP
     };

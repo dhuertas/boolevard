@@ -23,6 +23,7 @@ Basic types are:
 * Numbers: `1, -3, 1000`
 * String: `"This is a string"`
 * Lists: `[1, 2, 3, True, ["nested", "lists!"]]`
+* Ranges: `[1..4]`
 
 Available operators are:
 

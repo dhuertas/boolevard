@@ -57,9 +57,15 @@ Token Lexer::getNextToken(void) {
         }
 
         if (expression_[pos_] == '[') {
-            size_t length = getListLength();
-            std::string value = getList(length);
+            size_t length = getStructLength();
+            std::string value = getStruct(length);
             pos_ += length;
+
+            int64_t from = 0, to = 0;
+            if (sscanf(value.c_str(), "[%ld..%ld]", &from, &to) == 2) {
+                return Token(Token::RANGE, value);
+            }
+
             return Token(Token::LIST, value);
         }
 
@@ -190,13 +196,13 @@ size_t Lexer::getStringLength(void) {
 }
 
 //------------------------------------------------------------------------------
-std::string Lexer::getList(size_t length) {
+std::string Lexer::getStruct(size_t length) {
 
     return expression_.substr(pos_, length);
 }
 
 //------------------------------------------------------------------------------
-size_t Lexer::getListLength(void) {
+size_t Lexer::getStructLength(void) {
 
     size_t res = pos_;
 

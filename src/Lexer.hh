@@ -38,9 +38,9 @@ public:
 
     size_t getStringLength(void);
 
-    std::string getList(size_t length);
+    std::string getStruct(size_t length);
 
-    size_t getListLength(void);
+    size_t getStructLength(void);
 
     bool isFalse(void);
 

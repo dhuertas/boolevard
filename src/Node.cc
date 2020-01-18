@@ -13,6 +13,7 @@ std::string Node::names_[] = {
     "NUMBER",
     "STRING",
     "LIST",
+    "RANGE",
     "UNARYOP",
     "BINARYOP"
 };
