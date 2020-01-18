@@ -43,6 +43,7 @@ Check the test script for more examples.
 
 ## TODOs
 
+* Use variables in expression
 * Better error handling
 * Add more operator alternatives, e.g. `<` as `lt` (less than)
 * Add XOR operator
