@@ -22,13 +22,15 @@
 const char *exprStr_ = NULL;
 
 int logLevel_ = LOG_INFO;
+bool numeric_ = false;
 
 void usage(char *name) {
 
     char fmt[] = "Usage: %s [options] 'expression'\n"
         "Options:\n"
+        "\t-n: numeric output (0: false, 1: true)\n"
         "\t-v: verbose\n"
-        "\t-e: expression\n"
+        "\t-e: expression (useful when expression contains negative numbers)\n"
     "\n";
 
   printf(fmt, name);
@@ -41,15 +43,17 @@ int getOptions(int argc, char *argv[0]) {
 
     opterr = 0;
 
-    while ((c = getopt (argc, argv, "e:hv")) != -1) {
+    while ((c = getopt (argc, argv, "e:hnv")) != -1) {
 
         switch (c) {
 
             case 'h': usage(argv[0]); exit(0);
+            case 'n': numeric_ = true; break;
             case 'v': logLevel_++; break;
             case 'e': exprStr_ = optarg; break;
             default:
-                abort();
+                INFO("Unrecognized option: '%c'", c);
+                exit(-1);
         }
     }
 
@@ -77,7 +81,11 @@ int main(int argc, char *argv[]) {
 
     bool result = interpreter.interpret();
 
-    std::cout << (result ? "true" : "false") << std::endl;
+    if (numeric_) {
+        std::cout << (result ? "1" : "0") << std::endl;
+    } else {
+        std::cout << (result ? "true" : "false") << std::endl;
+    }
 
     return 0;
 }
