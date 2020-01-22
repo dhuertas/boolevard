@@ -39,7 +39,7 @@ Available operators are:
 * ends with: `ew`
 * in: `in`
 
-Use variables:
+Use variables in expression:
 ```bash
 ./interpreter -a res=`echo 2*6|bc` 'res eq 12'
 true
@@ -52,6 +52,8 @@ Numeric output:
 ./interpreter -n 'False'; echo $?
 1
 ```
+
+The numeric output is aligned to support the following command structure:
 ```bash
 ./interpreter -n 'True' && echo "Hello World!" || echo "Nope"
 Hello World!
