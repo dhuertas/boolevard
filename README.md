@@ -19,25 +19,29 @@ true
 
 Basic types are:
 
-* Boolean: `True, False`
-* Numbers: `1, -3, 1000`
-* String: `"This is a string"`
-* Lists: `[1, 2, 3, True, ["a", "b"]]`
-* Ranges: `[1..4]`
+| Type    | Example                       |
+| ------- | ----------------------------- |
+| Boolean | `True, False`                 |
+| Numbers | `1, -3, 1000`                 |
+| String  | `"This is a string"`          |
+| Lists   | `[1, 2, 3, True, ["a", "b"]]` |
+| Ranges  | `[1..4]`                      |
 
 Available operators are:
 
-* not: `not`
-* equal: `==`
-* not equal: `!=`
-* greater: `>`
-* less: `<`
-* greater or equal: `>=`
-* less or equal: `<=`
-* contains: `contains`
-* starts with: `sw`
-* ends with: `ew`
-* in: `in`
+| Operator         | Example    |
+| ---------------- | ---------- |
+| not              | `not`      |
+| equal            | `==`       |
+| not equal        | `!=`       |
+| greater          | `>`        |
+| less             | `<`        |
+| greater or equal | `>=`       |
+| less or equal    | `<=`       |
+| contains         | `contains` |
+| starts with      | `sw`       |
+| ends with        | `ew`       |
+| in               | `in`       |
 
 Use variables in expression:
 ```bash
