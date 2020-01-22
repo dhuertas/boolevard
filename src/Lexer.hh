@@ -9,6 +9,7 @@
 #define __LEXER_HH__
 
 #include <string>
+#include <map>
 
 #include "Object.hh"
 
@@ -22,6 +23,8 @@ protected:
 
     std::string expression_;
 
+    std::map<std::string, Token> variables_;
+
     size_t pos_;
 
 public:
@@ -29,6 +32,8 @@ public:
     Lexer(const std::string &exp);
 
     Token getNextToken(void);
+
+    void setVariables(const std::map<std::string, Token> &vars) { variables_ = vars; }
 
     std::string getNumber(size_t length);
 
@@ -73,6 +78,8 @@ public:
     bool isEndsWith(void);
 
     bool isIn(void);
+
+    bool isVariable(size_t *length);
 
 };
 

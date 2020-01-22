@@ -1,7 +1,7 @@
 /*
  * Boolean expression evaluator in C++.
  *
- * @author: Dani Huertas
+ * @author Dani Huertas
  * @email huertas.dani@gmail.com
  *
  */

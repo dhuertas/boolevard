@@ -72,13 +72,13 @@ public:
 
     int64_t getNumber(void) const;
 
+    std::vector<int64_t> getRange(void) const;
+
     std::string getString(void) const { return value_; }
 
     bool getBoolean(void) const;
 
     std::vector<Token> getList(void) const;
-
-    std::vector<int64_t> getRange(void) const;
 
     std::string toString(void) const;
 

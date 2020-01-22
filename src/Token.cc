@@ -95,6 +95,19 @@ int64_t Token::getNumber(void) const {
 
     return res;
 }
+//------------------------------------------------------------------------------
+std::vector<int64_t> Token::getRange(void) const {
+
+    std::vector<int64_t> res;
+
+    int64_t from, to;
+    sscanf(value_.c_str(), "[%ld..%ld]", &from, &to);
+
+    res.push_back(from);
+    res.push_back(to);
+
+    return res;
+}
 
 //------------------------------------------------------------------------------
 bool Token::getBoolean(void) const {
@@ -140,6 +153,7 @@ std::vector<Token> Token::getList(void) const {
 
                 if (token[0] == '[') {
                     int64_t from = 0, to = 0;
+
                     if (sscanf(token.c_str(), "[%ld..%ld]", &from, &to) == 2) {
                         tokens.push_back(Token(Token::RANGE, token));
                     } else {
@@ -172,6 +186,7 @@ std::vector<Token> Token::getList(void) const {
 
         if (token[0] == '[') {
             int64_t from = 0, to = 0;
+
             if (sscanf(token.c_str(), "[%ld..%ld]", &from, &to) == 2) {
                 tokens.push_back(Token(Token::RANGE, token));
             } else {
@@ -185,20 +200,6 @@ std::vector<Token> Token::getList(void) const {
     }
 
     return tokens;
-}
-
-//------------------------------------------------------------------------------
-std::vector<int64_t> Token::getRange(void) const {
-
-    std::vector<int64_t> res;
-    int64_t from = 0, to = 0;
-
-    sscanf(value_.c_str(), "[%ld..%ld]", &from, &to);
-
-    res.push_back(from);
-    res.push_back(to);
-
-    return res;
 }
 
 //------------------------------------------------------------------------------
@@ -234,7 +235,6 @@ int64_t Token::compare(const Token &token) const {
         case RANGE: {
             std::vector<int64_t> a = getRange();
             std::vector<int64_t> b = token.getRange();
-
             return not (a[0] == b[0] and a[1] == b[1]);
         }
     }

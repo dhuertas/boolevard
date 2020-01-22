@@ -1,7 +1,7 @@
 /*
  * Boolean expression evaluator in C++.
  *
- * @author: Dani Huertas
+ * @author Dani Huertas
  * @email huertas.dani@gmail.com
  *
  */
@@ -399,7 +399,7 @@ bool Interpreter::in(Node *left, Node *right) {
         Number *l = (Number *)left;
         Range *r = (Range *)right;
 
-        return r->getFrom() <= l->getValue() and l->getValue() <= r->getTo();
+        return (r->getFrom() <= l->getValue() and l->getValue() <= r->getTo());
     }
 
     return false;

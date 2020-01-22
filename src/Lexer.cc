@@ -22,6 +22,8 @@ Token Lexer::getNextToken(void) {
 
     bool validToken = true;
 
+    size_t length = 0;
+
     while (pos_ < expression_.size()) {
 
         if (expression_[pos_] == ' '  or 
@@ -43,14 +45,14 @@ Token Lexer::getNextToken(void) {
         }
 
         if (isNumber()) {
-            size_t length = getNumberLength();
+            length = getNumberLength();
             std::string value = getNumber(length);
             pos_ += length;
             return Token(Token::NUMBER, value);
         }
 
         if (expression_[pos_] == '"') {
-            size_t length = getStringLength();
+            length = getStringLength();
             std::string value = getString(length);
             pos_ += length;
             return Token(Token::STRING, value);
@@ -142,6 +144,16 @@ Token Lexer::getNextToken(void) {
         if (expression_[pos_] == ')') {
             pos_++;
             return Token(Token::RPAREN, ")");
+        }
+
+        if (isVariable(&length)) {
+ 
+            std::string name = getString(length);
+            pos_+= length;
+
+            if (variables_.find(name) != variables_.end()) {
+                return variables_[name];
+            }
         }
 
         validToken = false;
@@ -338,4 +350,21 @@ bool Lexer::isIn(void) {
 
     return (expression_.compare(pos_, 3, "in ") == 0 or 
             expression_.compare(pos_, 3, "IN ") == 0);
+}
+
+//------------------------------------------------------------------------------
+bool Lexer::isVariable(size_t *length) {
+
+    size_t res = pos_;
+
+    while (expression_[res] != ' ' and res < expression_.size()) {
+        res++;
+    }
+
+    if (variables_.find(expression_.substr(pos_, res - pos_)) != variables_.end())  {
+        *length = res - pos_;
+        return true;
+    }
+
+    return false;
 }
