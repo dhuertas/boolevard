@@ -1,4 +1,4 @@
-# boolean-evaluator
+# boolean-expression-evaluator
 Boolean expression evaluator in C++ using the interpreter pattern:
 ```
                +-------+                  +--------+             +-------------+
@@ -13,7 +13,7 @@ make release
 
 Here's an example of how to use the program in the command line:
 ```bash
-./interpreter '3 in [1, 2, 3, 4, 5] or (-2 < 3 and 3 < 5)'
+./bxe '3 in [1, 2, 3, 4, 5] or (-2 < 3 and 3 < 5)'
 true
 ```
 
@@ -45,23 +45,23 @@ Available operators are:
 
 Use variables in expression:
 ```bash
-./interpreter -a res=`echo 2*6|bc` 'res eq 12'
+./bxe -a res=`echo 2*6|bc` 'res eq 12'
 true
 ```
 
 Numeric output:
 ```bash
-./interpreter -n 'True'; echo $?
+./bxe -n 'True'; echo $?
 0
-./interpreter -n 'False'; echo $?
+./bxe -n 'False'; echo $?
 1
 ```
 
 The numeric output is aligned to support the following command structure:
 ```bash
-./interpreter -n 'True' && echo "Hello World!" || echo "Nope"
+./bxe -n 'True' && echo "Hello World!" || echo "Nope"
 Hello World!
-./interpreter -n 'False' && echo "Hello World!" || echo "Nope"
+./bxe -n 'False' && echo "Hello World!" || echo "Nope"
 Nope
 ```
 

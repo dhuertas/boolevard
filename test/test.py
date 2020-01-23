@@ -7,7 +7,7 @@ import subprocess
 
 def test(expr, expected):
 
-    proc = subprocess.Popen(["./interpreter", "-e", expr], stdout=subprocess.PIPE)
+    proc = subprocess.Popen(["./bxe", "-e", expr], stdout=subprocess.PIPE)
     output = proc.stdout.read()
 
     output = output.replace("\n", "")

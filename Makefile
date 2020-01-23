@@ -7,7 +7,7 @@ CC = g++
 CFLAGS = -Wall -std=c++11
 SHELL = /bin/bash
 
-TARGET = interpreter
+TARGET = bxe
 
 LIBS =
 

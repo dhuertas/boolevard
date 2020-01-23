@@ -41,9 +41,9 @@ void usage(char *name) {
     char fmt[] = "Usage: %s [options] 'expression'\n"
         "Options:\n"
         "\t-a: assign variable (name=value)\n"
-        "\t-n: numeric output (0: false, 1: true)\n"
-        "\t-v: verbose\n"
         "\t-e: expression (useful when expression contains negative numbers)\n"
+        "\t-h: this help\n"
+        "\t-n: numeric output (0: false, 1: true)\n"
         "\t-v: verbose\n"
     "\n";
 
@@ -114,6 +114,13 @@ int main(int argc, char *argv[]) {
 
     if (res < 0) {
         std::cerr << "Error parsing arguments" << std::endl;
+        return -1;
+    }
+
+    if (not exprStr_) {
+        std::cerr << "Missing expression" << std::endl;
+        std::cerr << std::endl;
+        usage(argv[0]);
         return -1;
     }
 
