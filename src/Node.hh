@@ -22,6 +22,7 @@ public:
         NONE,
         BOOLEAN,
         NUMBER,
+        FLOAT,
         STRING,
         LIST,
         RANGE,

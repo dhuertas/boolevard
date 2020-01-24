@@ -51,6 +51,13 @@ Token Lexer::getNextToken(void) {
             return Token(Token::NUMBER, value);
         }
 
+        if (isFloat()) {
+            length = getFloatLength();
+            std::string value = getFloat(length);
+            pos_ += length;
+            return Token(Token::FLOAT, value);
+        }
+
         if (expression_[pos_] == '"') {
             length = getStringLength();
             std::string value = getString(length);
@@ -185,6 +192,29 @@ size_t Lexer::getNumberLength(void) {
 }
 
 //------------------------------------------------------------------------------
+std::string Lexer::getFloat(size_t length) {
+
+  return expression_.substr(pos_, length);
+}
+
+//------------------------------------------------------------------------------
+size_t Lexer::getFloatLength(void) {
+
+    size_t i = pos_;
+
+    // allow negative numbers
+    if (expression_[i] == '-') i++;
+
+    while (i < expression_.size() and 
+        (isdigit(expression_[i]) or expression_[i] == '.')) {
+
+        i++;
+    }
+
+    return  i - pos_;
+}
+
+//------------------------------------------------------------------------------
 std::string Lexer::getString(size_t length) {
 
     return expression_.substr(pos_, length);
@@ -255,6 +285,12 @@ bool Lexer::isTrue(void) {
 bool Lexer::isNumber(void) {
 
     return Token::isNumber(expression_, pos_);
+}
+
+//------------------------------------------------------------------------------
+bool Lexer::isFloat(void) {
+
+    return Token::isFloat(expression_, pos_);
 }
 
 //------------------------------------------------------------------------------

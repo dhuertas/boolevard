@@ -9,6 +9,7 @@
 #include "Interpreter.hh"
 #include "Boolean.hh"
 #include "Number.hh"
+#include "Float.hh"
 #include "String.hh"
 #include "List.hh"
 #include "Range.hh"
@@ -79,14 +80,21 @@ bool Interpreter::visitBinaryOperator(Node *node) {
 }
 
 //------------------------------------------------------------------------------
-int64_t Interpreter::visitNumber(Node *node) {
+int64_t Interpreter::visitNumber(Node *node) const {
 
     DEBUG("Visiting Number: %s", node->toString().c_str());
     return ((Number *)node)->getValue();
 }
 
 //------------------------------------------------------------------------------
-bool Interpreter::visitBoolean(Node *node) {
+double Interpreter::visitFloat(Node *node) const {
+
+    DEBUG("Visiting Float: %s", node->toString().c_str());
+    return ((Float *)node)->getValue();
+}
+
+//------------------------------------------------------------------------------
+bool Interpreter::visitBoolean(Node *node) const {
 
     DEBUG("Visiting Boolean: %s", node->toString().c_str());
     return ((Boolean *)node)->getValue();
@@ -111,6 +119,7 @@ bool Interpreter::visit(Node *node) {
 
         case Node::BOOLEAN: return visitBoolean(node);
         case Node::NUMBER: return visitNumber(node) != 0;
+        case Node::FLOAT: return visitFloat(node) != 0.0;
         case Node::UNARYOP: return visitUnaryOperator(node);
         case Node::BINARYOP: return visitBinaryOperator(node);
     }
@@ -120,6 +129,23 @@ bool Interpreter::visit(Node *node) {
 
 //------------------------------------------------------------------------------
 bool Interpreter::greater(Node *left, Node *right) {
+
+    if ((left->getType() == Node::FLOAT and right->getType() == Node::NUMBER) or 
+        (left->getType() == Node::NUMBER and right->getType() == Node::FLOAT)) { 
+
+        if (left->getType() == Node::FLOAT) {
+            Float *l = (Float *)left;
+            Number *r = (Number *)right;
+ 
+            return l->getValue() > r->getValue();
+
+        } else {
+            Number *l = (Number *)left;
+            Float *r = (Float *)right;
+ 
+            return l->getValue() > r->getValue();
+        }
+    }
 
     if (left->getType() != right->getType()) {
         return false;
@@ -135,6 +161,13 @@ bool Interpreter::greater(Node *left, Node *right) {
     if (left->getType() == Node::NUMBER) {
         Number *l = (Number *)left;
         Number *r = (Number *)right;
+
+        return l->getValue() > r->getValue();
+    }
+
+    if (left->getType() == Node::FLOAT) {
+        Float *l = (Float *)left;
+        Float *r = (Float *)right;
 
         return l->getValue() > r->getValue();
     }
@@ -159,6 +192,23 @@ bool Interpreter::greater(Node *left, Node *right) {
 //------------------------------------------------------------------------------
 bool Interpreter::less(Node *left, Node *right) {
 
+    if ((left->getType() == Node::FLOAT and right->getType() == Node::NUMBER) or 
+        (left->getType() == Node::NUMBER and right->getType() == Node::FLOAT)) { 
+
+        if (left->getType() == Node::FLOAT) {
+            Float *l = (Float *)left;
+            Number *r = (Number *)right;
+ 
+            return l->getValue() < r->getValue();
+
+        } else {
+            Number *l = (Number *)left;
+            Float *r = (Float *)right;
+ 
+            return l->getValue() < r->getValue();
+        }
+    }
+
     if (left->getType() != right->getType()) {
         return false;
     }
@@ -173,6 +223,13 @@ bool Interpreter::less(Node *left, Node *right) {
     if (left->getType() == Node::NUMBER) {
         Number *l = (Number *)left;
         Number *r = (Number *)right;
+
+        return l->getValue() < r->getValue();
+    }
+
+    if (left->getType() == Node::FLOAT) {
+        Float *l = (Float *)left;
+        Float *r = (Float *)right;
 
         return l->getValue() < r->getValue();
     }
@@ -197,6 +254,23 @@ bool Interpreter::less(Node *left, Node *right) {
 //------------------------------------------------------------------------------
 bool Interpreter::equal(Node *left, Node *right) {
 
+    if ((left->getType() == Node::FLOAT and right->getType() == Node::NUMBER) or 
+        (left->getType() == Node::NUMBER and right->getType() == Node::FLOAT)) { 
+
+        if (left->getType() == Node::FLOAT) {
+            Float *l = (Float *)left;
+            Number *r = (Number *)right;
+ 
+            return l->getValue() == r->getValue();
+
+        } else {
+            Number *l = (Number *)left;
+            Float *r = (Float *)right;
+ 
+            return l->getValue() == r->getValue();
+        }
+    }
+
     if (left->getType() != right->getType()) {
         return false;
     }
@@ -211,6 +285,13 @@ bool Interpreter::equal(Node *left, Node *right) {
     if (left->getType() == Node::NUMBER) {
         Number *l = (Number *)left;
         Number *r = (Number *)right;
+
+        return l->getValue() == r->getValue();
+    }
+    
+    if (left->getType() == Node::FLOAT) {
+        Float *l = (Float *)left;
+        Float *r = (Float *)right;
 
         return l->getValue() == r->getValue();
     }
@@ -248,6 +329,23 @@ bool Interpreter::equal(Node *left, Node *right) {
 //------------------------------------------------------------------------------
 bool Interpreter::greaterOrEqual(Node *left, Node *right) {
 
+    if ((left->getType() == Node::FLOAT and right->getType() == Node::NUMBER) or 
+        (left->getType() == Node::NUMBER and right->getType() == Node::FLOAT)) { 
+
+        if (left->getType() == Node::FLOAT) {
+            Float *l = (Float *)left;
+            Number *r = (Number *)right;
+ 
+            return l->getValue() >= r->getValue();
+
+        } else {
+            Number *l = (Number *)left;
+            Float *r = (Float *)right;
+ 
+            return l->getValue() >= r->getValue();
+        }
+    }
+
     if (left->getType() != right->getType()) {
 
         return false;
@@ -259,15 +357,20 @@ bool Interpreter::greaterOrEqual(Node *left, Node *right) {
     }
 
     if (left->getType() == Node::NUMBER) {
-
         Number *l = (Number *)left;
         Number *r = (Number *)right;
 
         return l->getValue() >= r->getValue();
     }
+    
+    if (left->getType() == Node::FLOAT) {
+        Float *l = (Float *)left;
+        Float *r = (Float *)right;
+
+        return l->getValue() >= r->getValue();
+    }
 
     if (left->getType() == Node::STRING) {
-
         String *l = (String *)left;
         String *r = (String *)right;
 
@@ -275,7 +378,6 @@ bool Interpreter::greaterOrEqual(Node *left, Node *right) {
     }
 
     if (left->getType() == Node::LIST) {
-
         List *l = (List *)left;
         List *r = (List *)right;
 
@@ -288,6 +390,23 @@ bool Interpreter::greaterOrEqual(Node *left, Node *right) {
 //------------------------------------------------------------------------------
 bool Interpreter::lessOrEqual(Node *left, Node *right) {
 
+    if ((left->getType() == Node::FLOAT and right->getType() == Node::NUMBER) or 
+        (left->getType() == Node::NUMBER and right->getType() == Node::FLOAT)) { 
+
+        if (left->getType() == Node::FLOAT) {
+            Float *l = (Float *)left;
+            Number *r = (Number *)right;
+        
+            return l->getValue() <= r->getValue();
+
+        } else {
+            Number *l = (Number *)left;
+            Float *r = (Float *)right;
+        
+            return l->getValue() <= r->getValue();
+        }
+    }
+
     if (left->getType() != right->getType()) {
 
         return false;
@@ -299,15 +418,20 @@ bool Interpreter::lessOrEqual(Node *left, Node *right) {
     }
 
     if (left->getType() == Node::NUMBER) {
-
         Number *l = (Number *)left;
         Number *r = (Number *)right;
 
         return l->getValue() <= r->getValue();
     }
 
-    if (left->getType() == Node::STRING) {
+    if (left->getType() == Node::FLOAT) {
+        Float *l = (Float *)left;
+        Float *r = (Float *)right;
 
+        return l->getValue() <= r->getValue();
+    }
+
+    if (left->getType() == Node::STRING) {
         String *l = (String *)left;
         String *r = (String *)right;
 
@@ -315,7 +439,6 @@ bool Interpreter::lessOrEqual(Node *left, Node *right) {
     }
 
     if (left->getType() == Node::LIST) {
-
         List *l = (List *)left;
         List *r = (List *)right;
 
@@ -397,6 +520,13 @@ bool Interpreter::in(Node *left, Node *right) {
 
     if (left->getType() == Node::NUMBER and right->getType() == Node::RANGE) {
         Number *l = (Number *)left;
+        Range *r = (Range *)right;
+
+        return (r->getFrom() <= l->getValue() and l->getValue() <= r->getTo());
+    }
+
+    if (left->getType() == Node::FLOAT and right->getType() == Node::RANGE) {
+        Float *l = (Float *)left;
         Range *r = (Range *)right;
 
         return (r->getFrom() <= l->getValue() and l->getValue() <= r->getTo());

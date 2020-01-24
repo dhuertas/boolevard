@@ -39,6 +39,10 @@ public:
 
     size_t getNumberLength(void);
 
+    std::string getFloat(size_t length);
+
+    size_t getFloatLength(void);
+
     std::string getString(size_t length);
 
     size_t getStringLength(void);
@@ -52,6 +56,8 @@ public:
     bool isTrue(void);
 
     bool isNumber(void);
+
+    bool isFloat(void);
 
     bool isEqual(void);
 

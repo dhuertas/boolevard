@@ -11,6 +11,7 @@ std::string Node::names_[] = {
     "NONE",
     "BOOLEAN",
     "NUMBER",
+    "FLOAT",
     "STRING",
     "LIST",
     "RANGE",

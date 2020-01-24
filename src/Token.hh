@@ -21,6 +21,7 @@ public:
     enum Type {
         BOOLEAN,
         NUMBER,
+        FLOAT,
         STRING,
         LIST,
         RANGE,
@@ -52,6 +53,8 @@ public:
 
     static bool isNumber(const std::string &str, size_t pos = 0);
 
+    static bool isFloat(const std::string &str, size_t pos = 0);
+
     static void trim(std::string &str);
 
 private:
@@ -71,6 +74,8 @@ public:
     uint8_t getType(void) const { return type_; }
 
     int64_t getNumber(void) const;
+
+    double getFloat(void) const;
 
     std::vector<int64_t> getRange(void) const;
 

@@ -13,6 +13,7 @@
 std::string Token::names_[] = {
     "BOOLEAN",
     "NUMBER",
+    "FLOAT",
     "STRING",
     "LIST",
     "RANGE",
@@ -63,6 +64,31 @@ bool Token::isNumber(const std::string &str, size_t pos) {
     while (i < str.size() and isdigit(str[i])) {
 
         if ( ! res) res = true;
+
+        i++;
+    }
+        
+    if (res and str[i] == '.') {
+        // Could be a float number
+        return false;
+    }
+
+    return (res and i > pos);
+}
+
+//------------------------------------------------------------------------------
+bool Token::isFloat(const std::string &str, size_t pos) {
+
+    bool res = false;
+
+    size_t i = pos;
+
+    // allow negative numbers
+    if (str[i] == '-') i++;
+
+    while (i < str.size() and (isdigit(str[i]) or str[i] == '.')) {
+
+        if ( ! res) res = true;
         i++;
     }
 
@@ -95,6 +121,17 @@ int64_t Token::getNumber(void) const {
 
     return res;
 }
+
+//------------------------------------------------------------------------------
+double Token::getFloat(void) const {
+
+    double res = 0.0;
+
+    sscanf(value_.c_str(), "%lf", &res);
+
+    return res;
+}
+
 //------------------------------------------------------------------------------
 std::vector<int64_t> Token::getRange(void) const {
 

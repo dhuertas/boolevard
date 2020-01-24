@@ -31,9 +31,11 @@ public:
 
     bool visitBinaryOperator(Node *node);
 
-    bool visitBoolean(Node *node);
+    bool visitBoolean(Node *node) const;
 
-    int64_t visitNumber(Node *node);
+    int64_t visitNumber(Node *node) const;
+
+    double visitFloat(Node *node) const;
 
     bool interpret(void);
 

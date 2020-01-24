@@ -5,37 +5,37 @@
  * @email huertas.dani@gmail.com
  *
  */
-#ifndef __NUMBER_HH__
-#define __NUMBER_HH__
+#ifndef __FLOAT_HH__
+#define __FLOAT_HH__
 
 #include <sstream>
 
 #include "Node.hh"
 
-class Number : public Node {
+class Float : public Node {
     
 private:
 
 protected:
 
-    int64_t value_;
+    double value_;
 
 public:
 
-    Number(const Token &token) :
+    Float(const Token &token) :
         Node(token) {
 
-        value_ = token.getNumber();
+        value_ = token.getFloat();
     }
 
-    virtual uint32_t getType(void) { return Node::NUMBER; }
+    virtual uint32_t getType(void) { return Node::FLOAT; }
 
-    int64_t getValue(void) { return value_; }
+    double getValue(void) { return value_; }
 
     std::string toString(void) {
         
         std::stringstream ss;
-        ss << "Number(" << value_ << ")";
+        ss << "Float(" << value_ << ")";
         return ss.str();
     }
 };

@@ -12,6 +12,7 @@
 #include "Parser.hh"
 #include "Boolean.hh"
 #include "Number.hh"
+#include "Float.hh"
 #include "String.hh"
 #include "List.hh"
 #include "Range.hh"
@@ -64,6 +65,11 @@ Node *Parser::factor(void) {
     if (token.getType() == Token::NUMBER) {
         consume(Token::NUMBER);
         node = new Number(token);
+    }
+
+    if (token.getType() == Token::FLOAT) {
+        consume(Token::FLOAT);
+        node = new Float(token);
     }
 
     if (token.getType() == Token::BOOLEAN) {

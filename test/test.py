@@ -5,9 +5,17 @@
 #
 import subprocess
 
-def test(expr, expected):
+def test(expr, expected, params = None):
 
-    proc = subprocess.Popen(["./bxe", "-e", expr], stdout=subprocess.PIPE)
+    cmd = ["./bxe"]
+
+    if params != None and isinstance(params, list):
+    
+        cmd = cmd + params
+
+    cmd = cmd + ["-e", expr]
+
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)
     output = proc.stdout.read()
 
     output = output.replace("\n", "")
@@ -17,7 +25,10 @@ def test(expr, expected):
     else:
         res = "FAILED"
 
-    print "{}: Expression='{}'; expected={}; output={};".format(res, expr, expected, output)
+    if params != None:
+        print "{}: Expression='{}'; Params='{}' expected={}; output={};".format(res, expr, params, expected, output)
+    else:
+        print "{}: Expression='{}'; expected={}; output={};".format(res, expr, expected, output)
 
 
 if __name__ == "__main__":
@@ -63,3 +74,9 @@ if __name__ == "__main__":
     test("-1 in [-2..3]", "true")
     test("[1..3] in [[1..1], [1..2], [1..3]]", "true")
     test("[-1..0] in [[1..1], [1..2], [1..3]]", "false")
+    test("-1.0 eq -1", "true")
+    test("2.001 > 2", "true")
+    test("1.5 eq -1.5", "false")
+    test("res < 2", "true", params = ["-a", "res=1"])
+    test("res < 2", "true", params = ["-a", "res=1.5"])
+    test("res < 2", "false", params = ["-a", "res=2.005"])
