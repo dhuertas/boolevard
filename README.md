@@ -19,13 +19,14 @@ true
 
 Basic types are:
 
-| Type    | Example                       |
-| ------- | ----------------------------- |
-| Boolean | `True, False`                 |
-| Numbers | `1, -3, 1000`                 |
-| String  | `"This is a string"`          |
-| Lists   | `[1, 2, 3, True, ["a", "b"]]` |
-| Ranges  | `[1..4]`                      |
+| Type     | Example                       |
+| -------- | ----------------------------- |
+| Boolean  | `True, False`                 |
+| Integers | `1, -3, 1000`                 |
+| Decimals | `1.2, -0.5`                   |
+| Strings  | `"This is a string"`          |
+| Lists    | `[1, 2, 3, True, ["a", "b"]]` |
+| Ranges   | `[1..4]`                      |
 
 Available operators are:
 
@@ -57,7 +58,7 @@ Numeric output:
 1
 ```
 
-The numeric output is aligned to support the following command structure:
+The numeric output is aligned to support the following command line structure:
 ```bash
 ./bxe -n 'True' && echo "Hello World!" || echo "Nope"
 Hello World!
