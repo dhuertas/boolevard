@@ -69,6 +69,7 @@ if __name__ == "__main__":
     test("\"This is a test\" contains \"doh!\"", "false")
     test("\"This is a test\" contains True", "false")
     test("\"This is a test\" contains [30, 12, 2019]", "false")
+    test("\"ww\" contains \"www\"", "false")
     test("[1..2] == [1..2]", "true")
     test("[-2..3] == [2..3]", "false")
     test("-1 in [-2..3]", "true")
