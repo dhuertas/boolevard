@@ -80,3 +80,6 @@ if __name__ == "__main__":
     test("res < 2", "true", params = ["-a", "res=1"])
     test("res < 2", "true", params = ["-a", "res=1.5"])
     test("res < 2", "false", params = ["-a", "res=2.005"])
+    test("str sw \"this is\"", "true", params = ["-a", "str=\"this is a test\""])
+    test("str contains \" is a \"", "true", params = ["-a", "str=\"this is a test\""])
+    test("str ew \" a test\"", "true", params = ["-a", "str=\"this is a test\""])
