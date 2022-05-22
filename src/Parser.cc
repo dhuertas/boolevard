@@ -164,7 +164,8 @@ Node *Parser::expr(void) {
         
         switch (token.getType()) {
 
-            case Token::OR: consume(Token::OR); break;
+            case Token::OR:  consume(Token::OR);  break;
+            case Token::XOR: consume(Token::XOR); break;
         }
 
         node = new BinaryOperator(node, token, term());
@@ -212,6 +213,7 @@ bool Parser::isExpr(int8_t tokenType) {
     switch (tokenType) {
 
         case Token::OR:
+        case Token::XOR:
             return true;        
     }
 

@@ -32,6 +32,7 @@ public:
         GREQ,
         LEQ,
         OR,
+        XOR,
         AND,
         NOT,
         CONTAINS,

@@ -58,19 +58,20 @@ bool Interpreter::visitBinaryOperator(Node *node) {
 
     switch (bo->getOperator()) {
 
-        case Token::GREATER: return greater(left, right);
-        case Token::LESS: return less(left, right);
-        case Token::EQUAL: return equal(left, right);
-        case Token::NOTEQUAL: return not equal(left, right);
-        case Token::GREQ: return greaterOrEqual(left, right);
-        case Token::LEQ: return lessOrEqual(left, right);
-        case Token::CONTAINS: return contains(left, right);
+        case Token::GREATER:    return greater(left, right);
+        case Token::LESS:       return less(left, right);
+        case Token::EQUAL:      return equal(left, right);
+        case Token::NOTEQUAL:   return not equal(left, right);
+        case Token::GREQ:       return greaterOrEqual(left, right);
+        case Token::LEQ:        return lessOrEqual(left, right);
+        case Token::CONTAINS:   return contains(left, right);
         case Token::STARTSWITH: return startsWith(left, right);
-        case Token::ENDSWITH: return endsWith(left, right);
-        case Token::IN: return in(left, right);
+        case Token::ENDSWITH:   return endsWith(left, right);
+        case Token::IN:         return in(left, right);
 
-        case Token::OR: return (visit(left) or visit(right));
-        case Token::AND: return (visit(left) and visit(right));
+        case Token::AND:        return (visit(left) and visit(right));
+        case Token::OR:         return (visit(left) or visit(right));
+        case Token::XOR:        return (visit(left) xor visit(right));
 
         default:
             INFO("Invalid operator");

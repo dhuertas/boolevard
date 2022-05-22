@@ -76,6 +76,8 @@ public:
     bool isAnd(void);
 
     bool isNot(void);
+    
+    bool isXor(void);
 
     bool isContains(void);
 

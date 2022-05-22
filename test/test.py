@@ -7,7 +7,7 @@ import subprocess
 
 def test(expr, expected, params = None):
 
-    cmd = ["./bxe"]
+    cmd = ["./blvrd"]
 
     if params != None and isinstance(params, list):
     
@@ -45,6 +45,12 @@ if __name__ == "__main__":
     test("False OR True", "true")
     test("True OR False", "true")
     test("True OR True", "true")
+    test("true XOR false", "true")
+    test("true XOR true", "false")
+    test("false XOR false", "false")
+    test("false XOR true", "true")
+    test("false XOR (1 == 2)", "false")
+    test("true XOR (1 == 2)", "true")
     test("False AND False", "false")
     test("False AND True", "false")
     test("True AND False", "false")

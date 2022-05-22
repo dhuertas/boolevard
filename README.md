@@ -72,6 +72,6 @@ Check the test script for more examples.
 
 - [ ] Better error handling
 - [ ] Add more operator alternatives, e.g. `<` as `lt` (less than)
-- [ ] Add XOR operator
+- [x] Add XOR operator
 - [x] Add ranges
 - [x] Use variables in expression

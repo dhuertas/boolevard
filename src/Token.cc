@@ -24,6 +24,7 @@ std::string Token::names_[] = {
     "GREQ",
     "LEQ",
     "OR",
+    "XOR",
     "AND",
     "NOT",
     "CONTAINS",

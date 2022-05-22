@@ -123,6 +123,11 @@ Token Lexer::getNextToken(void) {
             return Token(Token::NOT, "not");
         }
 
+        if (isXor()) {
+            pos_ += 3;
+            return Token(Token::XOR, "xor");
+        }
+
         if (isContains()) {
             pos_ += 8;
             return Token(Token::CONTAINS, "contains");
@@ -356,6 +361,14 @@ bool Lexer::isNot(void) {
 
     return (expression_.compare(pos_, 4, "not ") == 0 or 
             expression_.compare(pos_, 4, "NOT ") == 0);
+
+}
+
+//------------------------------------------------------------------------------
+bool Lexer::isXor(void) {
+
+    return (expression_.compare(pos_, 4, "xor ") == 0 or 
+            expression_.compare(pos_, 4, "XOR ") == 0);
 
 }
 
