@@ -13,7 +13,7 @@ make release
 
 Here's an example of how to use the program in the command line:
 ```bash
-./bxe '3 in [1, 2, 3, 4, 5] or (-2 < 3 and 3 < 5)'
+./blvrd '3 in [1, 2, 3, 4, 5] or (-2 < 3 and 3 < 5)'
 true
 ```
 
@@ -46,23 +46,23 @@ Available operators are:
 
 Use variables in expression:
 ```bash
-./bxe -a res=`echo 2*6|bc` 'res eq 12'
+./blvrd -a res=`echo 2*6|bc` 'res eq 12'
 true
 ```
 
 Numeric output:
 ```bash
-./bxe -n 'True'; echo $?
+./blvrd -n 'True'; echo $?
 0
-./bxe -n 'False'; echo $?
+./blvrd -n 'False'; echo $?
 1
 ```
 
 The numeric output is aligned to support the following command line structure:
 ```bash
-./bxe -n 'True' && echo "Hello World!" || echo "Nope"
+./blvrd -n 'True' && echo "Hello World!" || echo "Nope"
 Hello World!
-./bxe -n 'False' && echo "Hello World!" || echo "Nope"
+./blvrd -n 'False' && echo "Hello World!" || echo "Nope"
 Nope
 ```
 
