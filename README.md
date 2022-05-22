@@ -1,5 +1,5 @@
-# boolean-expression-evaluator
-Boolean expression evaluator in C++ using the interpreter pattern:
+# Boulevard
+Boulevard is a boolean expression evaluator written in C++ using the interpreter pattern:
 ```
                +-------+                  +--------+             +-------------+
 expression --> | Lexer | --- [Tokens] --> | Parser | --- AST --> | Interpreter | --> True|False
